@@ -10,7 +10,7 @@ public class Graph<T> {
     public void addVertex(T node) {
         // TODO: Add the node to your map if it doesn't exist.
         if(!adjacencyList.containsKey(node)){
-            adjacencyList.put(node, getNeighbors(node));
+            adjacencyList.put(node, new ArrayList<>());
         }
     }
 
@@ -26,21 +26,21 @@ public class Graph<T> {
         adjacencyList.get(source).add(oneWayEdge);
 
         // TODO: Since space is 2-way, add the reverse edge too!
-        Edge<T> twoWayEdge = new Edge<>(destination, weight);
-        adjacencyList.get(source).add(twoWayEdge);
+        Edge<T> reverseEdge = new Edge<>(source, weight);
+        adjacencyList.get(destination).add(reverseEdge);
     }
 
     public List<Edge<T>> getNeighbors(T node) {
         // TODO: Return the list of edges for this node.
-        ArrayList<T> neighborsList = new ArrayList<>();
-
-        // Safety: Return an empty list if the node isn't found.
-        return  neighborsList;
+        if(adjacencyList.containsKey(node)){
+            return adjacencyList.get(node);
+        }
+        return new ArrayList<>(); // Safety: Return an empty list if the node isn't found.
     }
 
     public Set<T> getVertices() {
         // TODO: Return all the keys (nodes) from your map.
-        return new HashSet<>();
+        return new HashSet<>(adjacencyList.keySet());
     }
 
     public void resetNodes() {

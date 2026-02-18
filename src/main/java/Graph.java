@@ -10,7 +10,7 @@ public class Graph<T> {
         // TODO: Add the node to your map if it doesn't exist.
     }
 
-    public void addEdge(T source, T destination, double weight) {
+    public void addEdge(T source, Planet destination, double weight) {
         // TODO: Ensure both vertices exist.
         // TODO: Create an Edge object and add it to the source's list.
         // TODO: Since space is 2-way, add the reverse edge too!

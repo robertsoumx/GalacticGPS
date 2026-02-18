@@ -1,8 +1,8 @@
 public class Edge<T> {
-    public final T destination;
+    public final Planet destination;
     public final double weight;
 
-    public Edge(T destination, double weight) {
+    public Edge(Planet destination, double weight) {
         this.destination = destination;
         this.weight = weight;
     }

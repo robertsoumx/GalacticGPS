@@ -24,9 +24,9 @@ public class UniverseGenerator {
         for(int i = 0; i < 20; i++){
             Planet newPlanet = null;
             int attempt = 0;
-            boolean validPosition = true;
+            boolean validPosition = false;
 
-            while(validPosition && attempt < 100){
+            while(!validPosition && attempt < 100){
                 String name = "Planet" + (i+1);
                 double x = (Math.random()*(width - 100));
                 double y = (Math.random()*(height - 100));
@@ -34,7 +34,8 @@ public class UniverseGenerator {
                 newPlanet = new Planet(name, x, y);
                 // TODO: Check for collisions (min distance > 80).
                 for(Planet planet: planets){
-                    double distance = Math.sqrt(Math.pow(planet.getX(), 2) + (Math.pow(planet.getY(), 2)));
+                    double distance = Math.hypot(newPlanet.getX() - planet.getX(), newPlanet.getY() - planet.getY());
+                    //distance from planets = newPlanet - planet
                     if(distance < 80){
                         validPosition = false;
                         break;
@@ -49,6 +50,7 @@ public class UniverseGenerator {
         }
 
         // TODO: Connect each planet to its 3 closest neighbors.
+
 
         return universe;
     }

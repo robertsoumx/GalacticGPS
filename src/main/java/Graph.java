@@ -26,7 +26,7 @@ public class Graph<T> {
         adjacencyList.get(source).add(oneWayEdge);
 
         // TODO: Since space is 2-way, add the reverse edge too!
-        Edge<T> reverseEdge = new Edge<>(source, weight);
+        Edge<T> reverseEdge = new Edge<>((Planet) source, weight);
         adjacencyList.get(destination).add(reverseEdge);
     }
 

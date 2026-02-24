@@ -1,0 +1,15 @@
+Issue: UniverseGenerator - insertion sorting; the neighbor searching is inaccurate
+AI tool: Deepseek
+Prompt: My implementation of a linked list is not working, what might be the issue?
+Solution found: The AI pointed out I am comparing my nodes in a 1D manner when it should be 2D. This
+                relates to other issues as well, duplication of my nodes, unbalanced tree, and inaccuracy
+                in neighbor searching --> adding a depth parameter fixes it. Alternating the comparison
+                in X and Y yields an accurate 2D representation. I.e Earth = (100,300), Mars = (101,3000)
+                My old algorithm would think it is close because it only compares the X value when in
+                reality it is very far apart because of the difference in its Y value.
+
+Issue: I did not know how to sort List<PlanetDistance> allDistances = new ArrayList<>(); from least
+        to greatest.
+AI tool: Deepseek
+Prompt: Is there a way I can sort this list with getter methods?
+Solution found: It recommended a comparator: Comparator.comparingDouble(PlanetDistance::getDistance).

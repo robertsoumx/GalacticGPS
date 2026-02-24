@@ -73,15 +73,26 @@ public class SpaceExplorerApp extends Application {
         // TODO: Loop through every neighbor in universe.getNeighbors(planet)
         // TODO: Create a new Line(p.x, p.y, neighbor.x, neighbor.y)
         // TODO: spacePane.getChildren().add(line);
+        for (Planet eachPlanet : universe.getVertices()) {
+            for (Edge thisEdge : universe.getNeighbors(eachPlanet)) {
+                Line thisLine = new Line(eachPlanet.getX(), eachPlanet.getY(), thisEdge.destination.getX(), thisEdge.destination.getY());
+                spacePane.getChildren().add(thisLine);
+            }
+        }
 
         // 2. Draw Nodes (Planets)
         // TODO: Loop through every planet again.
         // TODO: Create a Circle(p.x, p.y, 10)
         // TODO: Set color Color.CYAN
         // TODO: spacePane.getChildren().add(circle);
+        for (Planet eachPlanet : universe.getVertices()) {
+            Circle thisCircle = new Circle(eachPlanet.getX(), eachPlanet.getY(), 10);
+            thisCircle.setFill(Color.CYAN);
+            spacePane.getChildren().add(thisCircle);
+            thisCircle.setOnMouseClicked(e -> handlePlanetClick(eachPlanet));
+        }
 
         // 3. Add Click Events
-        // circle.setOnMouseClicked(e -> handlePlanetClick(p));
     }
 
     private void handlePlanetClick(Planet p) {
@@ -101,6 +112,11 @@ public class SpaceExplorerApp extends Application {
         // --- STUDENT B TASK: DRAW THE PATH ---
         // TODO: Loop through the 'path' list.
         // TODO: Draw a thick GOLD line connecting the planets.
+        for (int i = 1; i <= path.size(); i ++) {
+            Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getX());
+            eachLine.setFill(Color.GOLD);
+            spacePane.getChildren().add(eachLine);
+        }
 
         if (path.isEmpty()) {
             statusLabel.setText("No path found.");

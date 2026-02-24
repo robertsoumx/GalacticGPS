@@ -34,7 +34,9 @@ public class UniverseGenerator {
                 newPlanet = new Planet(name, x, y);
                 // TODO: Check for collisions (min distance > 80).
                 for(Planet planet: planets){
-                    double distance = Math.hypot(newPlanet.getX() - planet.getX(), newPlanet.getY() - planet.getY());
+                    double distance = Math.hypot(
+                            newPlanet.getX() - planet.getX(), newPlanet.getY() - planet.getY()
+                    );
                     //distance from planets = newPlanet - planet
                     if(distance < 80){
                         validPosition = false;
@@ -50,6 +52,20 @@ public class UniverseGenerator {
         }
 
         // TODO: Connect each planet to its 3 closest neighbors.
+
+        Tree tree = new Tree();
+
+        for(Planet planet: planets){
+            Tree.insert(planet);
+        }
+
+        for(Planet currentPlanet: planets){
+            List<PlanetDistance> nearestPlanets = Tree.nearestNeighborsBFS(currentPlanet, 3);
+            for(int i = 0; i < 3; i++){
+                PlanetDistance otherPlanet = nearestPlanets.get(i);
+                universe.addEdge(currentPlanet, otherPlanet.planet, otherPlanet.getDistance());
+            }
+        }
 
 
         return universe;

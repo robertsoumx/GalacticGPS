@@ -9,13 +9,13 @@ public class UniverseGenerator {
         // These planets verify that your Graph and UI work.
         // Once Earth and Mars appear on screen, YOU CAN DELETE THIS SECTION.
 
-        Planet p1 = new Planet("Earth", 100, 300);
+        /*Planet p1 = new Planet("Earth", 100, 300);
         Planet p2 = new Planet("Mars", 800, 300);
 
         System.out.println("Adding Earth and Mars to the Graph...");
         universe.addVertex(p1);
         universe.addVertex(p2);
-        universe.addEdge(p1, p2, 700);
+        universe.addEdge(p1, p2, 700);*/
 
         // --- MILESTONE 2: PROCEDURAL GENERATION ---
         ArrayList<Planet> planets = new ArrayList<>();
@@ -30,6 +30,7 @@ public class UniverseGenerator {
                 String name = "Planet" + (i+1);
                 double x = (Math.random()*(width - 100));
                 double y = (Math.random()*(height - 100));
+                validPosition = true;
 
                 newPlanet = new Planet(name, x, y);
                 // TODO: Check for collisions (min distance > 80).

@@ -76,6 +76,8 @@ public class UniverseGenerator {
         return universe;
     }
 
+    /// helper method to compare if every planet is connected to each other using a queue
+    /// and BFS
     public static boolean connectedPlanets(Graph<Planet> universe, List<Planet> planets){
         Set<Planet> visited = new HashSet<>();
         Queue<Planet> queue = new LinkedList<>();

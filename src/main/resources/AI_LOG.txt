@@ -54,4 +54,6 @@ Solution found: It explains BarChart needs to have a category axis because bars 
 Issue: The path will not appear whenever I try to find a path for any node in the interface. I debugged previously so
         I know it's because of the Pathfinder.java's contents.
 AI tool: ChatGPT 5.2 Thinking
-Prompt:
+Prompt: The following findShortestPath will return an empty list however I call it; please identify the section of code that
+        is involved in this issue and mention the logical issues that are present without returning the entire solution.
+Solution found: I have a 1 to maxlength loop while it should be 0 to maxlength - 1 in the for loop. Easy fix.

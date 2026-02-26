@@ -124,7 +124,18 @@ public class SpaceExplorerApp extends Application {
         // TODO: Draw a thick GOLD line connecting the planets.
         for (int i = 0; i < path.size(); i ++) {
             Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getY());
-            eachLine.setStroke(Color.GOLD);
+            if (Math.hypot(path.get(i).previous.getX() - path.get(i).getX(), path.get(i).previous.getY() - path.get(i).getY()) > 200) {
+                eachLine.setStrokeWidth(5);
+                eachLine.setStroke(Color.RED);
+            }
+            else if (Math.hypot(path.get(i).previous.getX() - path.get(i).getX(), path.get(i).previous.getY() - path.get(i).getY()) < 150) {
+                eachLine.setStrokeWidth(10);
+                eachLine.setStroke(Color.GREEN);
+            }
+            else {
+                eachLine.setStrokeWidth(7);
+                eachLine.setStroke(Color.WHITE);
+            }
             spacePane.getChildren().add(eachLine);
         }
 

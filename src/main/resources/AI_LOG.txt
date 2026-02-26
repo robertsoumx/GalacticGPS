@@ -55,3 +55,10 @@ Issue: The path will not appear whenever I try to find a path for any node in th
         I know it's because of the Pathfinder.java's contents.
 AI tool: ChatGPT 5.2 Thinking
 Prompt:
+
+Issue: There are islands in the universe. Not every planet is connected to each other.
+AI tool: ChatGPT 5.2 Thinking
+Prompt: How would I check if every planet is connected to each other? Would stacks help?
+Solution found: The AI suggested instead to use a queue and a helper boolean method to check if every
+                planet is connected to each other. It suggested to run BFS through my universe
+                and if it does not return 20 then run generate(width, height) again.

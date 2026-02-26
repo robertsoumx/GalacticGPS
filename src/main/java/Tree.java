@@ -1,12 +1,12 @@
 import java.util.*;
 public class Tree {
-    private static Node root;
+    private Node root;
 
-    public static void insert(Planet planet){
+    public void insert(Planet planet){
         root = insert(root, planet, 0);
     }
 
-    private static Node insert(Node node, Planet planet, int depth){
+    private Node insert(Node node, Planet planet, int depth){
         if (node == null){ //base case for recursive method
             return new Node(planet);
         }
@@ -31,8 +31,13 @@ public class Tree {
         return node;
     }
 
-    public static List<PlanetDistance> nearestNeighborsBFS(Planet target, int n){
+    public List<PlanetDistance> nearestNeighborsBFS(Planet target, int n){
         List<PlanetDistance> allDistances = new ArrayList<>();
+
+        if(root == null){
+            return allDistances;
+        }
+
         Queue<Node> queue = new LinkedList<>();
 
         queue.offer(root);

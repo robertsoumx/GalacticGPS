@@ -28,7 +28,7 @@ public class Pathfinder {
             // TODO: Calculate new distance (current.min + edge.weight)
             // TODO: If shorter, update neighbor.minDistance & neighbor.previous, then add to queue.
             for (Edge thisEdge : graph.getNeighbors(current)) {
-                neighbor = thisEdge.destination;
+                neighbor = (Planet) thisEdge.destination;
                 distance = Math.hypot(current.getX() - neighbor.getX(), current.getY() - neighbor.getY());
                 if (distance < current.minDistance) {
                     neighbor.minDistance = distance;

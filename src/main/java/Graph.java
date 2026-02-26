@@ -14,7 +14,7 @@ public class Graph<T> {
         }
     }
 
-    public void addEdge(T source, Planet destination, double weight) {
+    public void addEdge(T source, T destination, double weight) {
         // TODO: Ensure both vertices exist.
         boolean verticesExist = adjacencyList.containsKey(source) && adjacencyList.containsKey(destination);
         if(!verticesExist){
@@ -23,11 +23,15 @@ public class Graph<T> {
 
         // TODO: Create an Edge object and add it to the source's list.
         Edge<T> oneWayEdge = new Edge<>(destination, weight);
-        adjacencyList.get(source).add(oneWayEdge);
+        if(!adjacencyList.get(source).contains(oneWayEdge)){
+            adjacencyList.get(source).add(oneWayEdge);
+        }
 
         // TODO: Since space is 2-way, add the reverse edge too!
-        Edge<T> reverseEdge = new Edge<>((Planet) source, weight);
-        adjacencyList.get(destination).add(reverseEdge);
+        Edge<T> reverseEdge = new Edge<>(source, weight);
+        if(!adjacencyList.get(destination).contains(reverseEdge)){
+            adjacencyList.get(destination).add(reverseEdge);
+        }
     }
 
     public List<Edge<T>> getNeighbors(T node) {

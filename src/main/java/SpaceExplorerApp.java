@@ -84,6 +84,7 @@ public class SpaceExplorerApp extends Application {
         for (Planet eachPlanet : universe.getVertices()) {
             for (Edge<Planet> thisEdge : universe.getNeighbors(eachPlanet)) {
                 Line thisLine = new Line(eachPlanet.getX(), eachPlanet.getY(), thisEdge.destination.getX(), thisEdge.destination.getY());
+                thisLine.setStroke(Color.PINK);
                 spacePane.getChildren().add(thisLine);
                 thisLine.setStroke(Color.PINK);
             }
@@ -121,9 +122,20 @@ public class SpaceExplorerApp extends Application {
         // --- STUDENT B TASK: DRAW THE PATH ---
         // TODO: Loop through the 'path' list.
         // TODO: Draw a thick GOLD line connecting the planets.
-        for (int i = 1; i <= path.size(); i ++) {
-            Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getX());
-            eachLine.setFill(Color.GOLD);
+        for (int i = 0; i < path.size(); i ++) {
+            Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getY());
+            if (Math.hypot(path.get(i).previous.getX() - path.get(i).getX(), path.get(i).previous.getY() - path.get(i).getY()) > 200) {
+                eachLine.setStrokeWidth(5);
+                eachLine.setStroke(Color.RED);
+            }
+            else if (Math.hypot(path.get(i).previous.getX() - path.get(i).getX(), path.get(i).previous.getY() - path.get(i).getY()) < 150) {
+                eachLine.setStrokeWidth(10);
+                eachLine.setStroke(Color.GREEN);
+            }
+            else {
+                eachLine.setStrokeWidth(7);
+                eachLine.setStroke(Color.WHITE);
+            }
             spacePane.getChildren().add(eachLine);
         }
 

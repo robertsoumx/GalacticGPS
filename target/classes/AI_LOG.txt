@@ -50,3 +50,8 @@ Prompt: my bar chart will not appear because of an Axis Type error. The console 
 Solution found: It explains BarChart needs to have a category axis because bars are grouped by categories.
                 I incorrectly defined my X axis as Integer objects with numbers of different degrees
                 when it should be CategoryAxis.
+
+Issue: The path will not appear whenever I try to find a path for any node in the interface. I debugged previously so
+        I know it's because of the Pathfinder.java's contents.
+AI tool: ChatGPT 5.2 Thinking
+Prompt:

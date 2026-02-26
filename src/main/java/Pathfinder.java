@@ -22,15 +22,15 @@ public class Pathfinder {
             }
             // TODO: Skip if already 'visited'.
             if (current.visited) {
-                current = queue.poll();
+                continue;
             }
             // TODO: Iterate over graph.getNeighbors(current)
             // TODO: Calculate new distance (current.min + edge.weight)
             // TODO: If shorter, update neighbor.minDistance & neighbor.previous, then add to queue.
             for (Edge thisEdge : graph.getNeighbors(current)) {
                 neighbor = (Planet) thisEdge.destination;
-                distance = Math.hypot(current.getX() - neighbor.getX(), current.getY() - neighbor.getY());
-                if (distance < current.minDistance) {
+                distance = current.minDistance + Math.hypot(current.getX() - neighbor.getX(), current.getY() - neighbor.getY());
+                if (distance < neighbor.minDistance) {
                     neighbor.minDistance = distance;
                     neighbor.previous = current;
                     queue.add(neighbor);

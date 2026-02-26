@@ -9,13 +9,13 @@ public class UniverseGenerator {
         // These planets verify that your Graph and UI work.
         // Once Earth and Mars appear on screen, YOU CAN DELETE THIS SECTION.
 
-        /*Planet p1 = new Planet("Earth", 100, 300);
-        Planet p2 = new Planet("Mars", 800, 300);
+        //Planet p1 = new Planet("Earth", 100, 300);
+        //Planet p2 = new Planet("Mars", 800, 300);
 
-        System.out.println("Adding Earth and Mars to the Graph...");
-        universe.addVertex(p1);
-        universe.addVertex(p2);
-        universe.addEdge(p1, p2, 700);*/
+        //System.out.println("Adding Earth and Mars to the Graph...");
+        //universe.addVertex(p1);
+        //universe.addVertex(p2);
+        //universe.addEdge(p1, p2, 700);
 
         // --- MILESTONE 2: PROCEDURAL GENERATION ---
         ArrayList<Planet> planets = new ArrayList<>();
@@ -27,9 +27,9 @@ public class UniverseGenerator {
             boolean validPosition = false;
 
             while(!validPosition && attempt < 100){
-                String name = "Planet" + (i+1);
-                double x = (Math.random()*(width - 100));
-                double y = (Math.random()*(height - 100));
+                String name = "Planet " + (i+1);
+                double x = 50 + (Math.random()*(width - 100));
+                double y = 50 + (Math.random()*(height - 100));
                 validPosition = true;
 
                 newPlanet = new Planet(name, x, y);
@@ -57,18 +57,18 @@ public class UniverseGenerator {
         Tree tree = new Tree();
 
         for(Planet planet: planets){
-            Tree.insert(planet);
+            tree.insert(planet);
         }
 
         for(Planet currentPlanet: planets){
-            List<PlanetDistance> nearestPlanets = Tree.nearestNeighborsBFS(currentPlanet, 3);
-            for(int i = 0; i < 3; i++){
+            List<PlanetDistance> nearestPlanets = tree.nearestNeighborsBFS(currentPlanet, 4);
+            //we use parameter 4 because BFS includes itself (1 is the planet itself and the other 3
+            //are the 3 closest neighboring planets
+            for(int i = 1; i < 4; i++){
                 PlanetDistance otherPlanet = nearestPlanets.get(i);
                 universe.addEdge(currentPlanet, otherPlanet.planet, otherPlanet.getDistance());
             }
         }
-
-
         return universe;
     }
 }

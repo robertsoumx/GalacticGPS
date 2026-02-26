@@ -7,6 +7,12 @@ import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.CategoryAxis;
 
 public class SpaceExplorerApp extends Application {
 
@@ -27,13 +33,15 @@ public class SpaceExplorerApp extends Application {
         toolbar.setStyle("-fx-padding: 10px; -fx-background-color: #333;");
         Button btnGen = new Button("Generate Universe");
         Button btnClear = new Button("Clear Path");
+        Button btnDegreeDistribution = new Button("Degree Distribution");
 
         btnGen.setOnAction(e -> generateAndDraw());
         btnClear.setOnAction(e -> {
             startNode = null; endNode = null;
             drawGraph();
         });
-        toolbar.getChildren().addAll(btnGen, btnClear);
+        btnDegreeDistribution.setOnAction(e -> degreeDistribution());
+        toolbar.getChildren().addAll(btnGen, btnClear, btnDegreeDistribution);
 
         // Setup Canvas
         spacePane = new Pane();
@@ -74,10 +82,11 @@ public class SpaceExplorerApp extends Application {
         // TODO: Create a new Line(p.x, p.y, neighbor.x, neighbor.y)
         // TODO: spacePane.getChildren().add(line);
         for (Planet eachPlanet : universe.getVertices()) {
-            for (Edge thisEdge : universe.getNeighbors(eachPlanet)) {
+            for (Edge<Planet> thisEdge : universe.getNeighbors(eachPlanet)) {
                 Line thisLine = new Line(eachPlanet.getX(), eachPlanet.getY(), thisEdge.destination.getX(), thisEdge.destination.getY());
                 thisLine.setStroke(Color.PINK);
                 spacePane.getChildren().add(thisLine);
+                thisLine.setStroke(Color.PINK);
             }
         }
 
@@ -124,6 +133,54 @@ public class SpaceExplorerApp extends Application {
         } else {
             statusLabel.setText("Path found! Steps: " + path.size());
         }
+    }
+
+    private void degreeDistribution(){
+        if(universe == null){
+            statusLabel.setText("Generate a universe first.");
+            return;
+        }
+
+        System.out.println("Degree distribution");
+
+        Map<Integer, Integer> degreeCount = new HashMap<>();
+
+        for(Planet planet: universe.getVertices()){
+            int degree = universe.getNeighbors(planet).size();
+            degreeCount.put(degree, degreeCount.getOrDefault(degree, 0) + 1);
+            //we used getOrDefault(degree, 0) instead of get(degree) in case of that planet being
+            //the first planet to have that many degrees instead of it returning null.
+            System.out.println(planet.getName() +" has "+degree+" connections.");
+        }
+
+        if(degreeCount.isEmpty()){
+            System.out.println("degree count is empty");
+            return;
+        }
+
+        Stage chartStage = new Stage();
+        chartStage.setTitle("Degree Distribution");
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of degrees");
+        yAxis.setLabel("Number of planets");
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Degree Distribution");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Planets");
+
+        for(Map.Entry<Integer, Integer> entry : degreeCount.entrySet()){
+            series.getData().add(new XYChart.Data<>(String.valueOf(entry.getKey()), entry.getValue()));
+        }
+
+        barChart.getData().add(series);
+
+        Scene scene = new Scene(barChart, 600, 400);
+        chartStage.setScene(scene);
+        chartStage.show();
     }
 
     public static void main(String[] args) {

@@ -76,6 +76,7 @@ public class SpaceExplorerApp extends Application {
         for (Planet eachPlanet : universe.getVertices()) {
             for (Edge thisEdge : universe.getNeighbors(eachPlanet)) {
                 Line thisLine = new Line(eachPlanet.getX(), eachPlanet.getY(), thisEdge.destination.getX(), thisEdge.destination.getY());
+                thisLine.setStroke(Color.PINK);
                 spacePane.getChildren().add(thisLine);
             }
         }
@@ -114,7 +115,7 @@ public class SpaceExplorerApp extends Application {
         // TODO: Draw a thick GOLD line connecting the planets.
         for (int i = 1; i <= path.size(); i ++) {
             Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getX());
-            eachLine.setFill(Color.GOLD);
+            eachLine.setStroke(Color.GOLD);
             spacePane.getChildren().add(eachLine);
         }
 

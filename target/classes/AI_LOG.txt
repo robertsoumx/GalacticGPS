@@ -1,0 +1,52 @@
+Issue: UniverseGenerator - insertion sorting; the neighbor searching is inaccurate
+AI tool: Deepseek
+Prompt: My implementation of a linked list is not working, what might be the issue?
+Solution found: The AI pointed out I am comparing my nodes in a 1D manner when it should be 2D. This
+                relates to other issues as well, duplication of my nodes, unbalanced tree, and inaccuracy
+                in neighbor searching --> adding a depth parameter fixes it. Alternating the comparison
+                in X and Y yields an accurate 2D representation. ie Earth = (100,300), Mars = (101,3000)
+                My old algorithm would think it is close because it only compares the X value when in
+                reality it is very far apart because of the difference in its Y value.
+
+Issue: I did not know how to sort List<PlanetDistance> allDistances = new ArrayList<>(); from least
+        to greatest.
+AI tool: Deepseek
+Prompt: Is there a way I can sort this list with getter methods?
+Solution found: It recommended a comparator: Comparator.comparingDouble(PlanetDistance::getDistance).
+
+Issue: the universe was empty; it did not randomly generate 20 planets; it was a black screen.
+AI tool: Deepseek
+Prompt: My generate universe method is not generating anything and I copied the 20 planets for loop
+        section.
+Solution found: "Your validPosition logic is backwards." My original code started off with
+                validPosition = false and I only set it false again, so it never becomes true
+                so it never becomes true so that newPlanet can be added to the universe.
+
+Issue: A hard time figuring out how to do "the Dashboard."
+AI tool: Deepseek
+Prompt: Say I want to create a bar chart showing a degree distribution, what would be the best approach?
+Solution found: It recommended me to start with a Map that keeps track of the degrees for each planet
+                of a for loop.
+
+Issue: I am not familiar with working with graphs in java.
+AI tool: Deepseek
+Prompt: How do I implement graphs and charts? What are the essential functions I need to know?
+Solution found: It suggested me to declare an X-axis and a Y-axis and label them. Then, declare a bar
+                chart and the desired series using the map I have already created with the degrees
+                and simply add the data to the series and finally add the series to the chart.
+
+Issue: for degree distribution, the graph says this certain node has 3 connections but the console says
+       there are more connections to this node, which is incorrect.
+AI tool: ChatGPT 5.2 Thinking
+Prompt: My console shows more connections to a node than there should be, do you think it's an issue
+        with duplicates in my adjacency list?
+Solution found: The AI agreed with my statement and showed me a way to properly define comparison to
+                avoid duplicates. Lines 12-26 in our Edge class.
+
+Issue: a bar chart will not show up when I click degree distribution because of an Axis Type error.
+AI tool: ChatGPT 5.2 Thinking
+Prompt: my bar chart will not appear because of an Axis Type error. The console suggests I need to have
+        one of my X or Y to be a CategoryAxis. What does this mean and what is the difference?
+Solution found: It explains BarChart needs to have a category axis because bars are grouped by categories.
+                I incorrectly defined my X axis as Integer objects with numbers of different degrees
+                when it should be CategoryAxis.

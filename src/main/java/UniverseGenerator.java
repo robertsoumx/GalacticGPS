@@ -71,6 +71,32 @@ public class UniverseGenerator {
                 universe.addEdge(currentPlanet, otherPlanet.planet, otherPlanet.getDistance());
             }
         }
+
+        if(!connectedPlanets(universe,planets)){
+            return generate(width, height);
+        }
         return universe;
+    }
+
+    /// helper method to compare if every planet is connected to each other using a queue
+    /// and BFS
+    public static boolean connectedPlanets(Graph<Planet> universe, List<Planet> planets){
+        Set<Planet> visited = new HashSet<>();
+        Queue<Planet> queue = new LinkedList<>();
+
+        Planet start = planets.get(0);
+        visited.add(start);
+        queue.offer(start);
+
+        while(!queue.isEmpty()){
+            Planet current = queue.poll();
+            for(Edge<Planet> edge : universe.getNeighbors(current)){
+                Planet next = edge.destination;
+                if(visited.add(next)){
+                    queue.offer(next);
+                }
+            }
+        }
+        return visited.size() == planets.size();
     }
 }

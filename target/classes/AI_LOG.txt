@@ -54,4 +54,17 @@ Solution found: It explains BarChart needs to have a category axis because bars 
 Issue: The path will not appear whenever I try to find a path for any node in the interface. I debugged previously so
         I know it's because of the Pathfinder.java's contents.
 AI tool: ChatGPT 5.2 Thinking
-Prompt:
+Prompt: The following findShortestPath will return an empty list however I call it; please identify the section of code that
+        is involved in this issue and mention the logical issues that are present without returning the entire solution.
+Solution found: I have a 1 to maxlength loop while it should be 0 to maxlength - 1 in the for loop. Easy fix.
+
+Issue: Trying to implement God Mode
+AI tool: ChatGPT 5.2 Thinking
+Prompt: the following file is one file in my project that involves planet objects, edge objects, and graph objects. the other important file containing the findShortestPath is Pathfinder.java. Currently the program works perfectly. In what ways do I modify my project in order to implement a system where the user drag-and-drops the planets wherever they want on the screen and the respective lines connecting the nodes change and adapt according to it? I also want to learn how to implement this function after the path is drawn, so the path adapts to the new position of the planet. Here's the code of SpaceExplorerApp.java, which will be called with a Launcher.java containing javafx:
+Solution Found: Using doubleProperty on all variables involved and so the calls to them dynamically adjust to every time it changes. Use new event handler for mouse dragging.
+
+Issue: God Mode path edges not moving after path found
+AI tool: ChatGPT 5.2 Thinking
+Prompt: My path after being drawn is adjusting the nodes in terms of position but when the length changes into one that is supposed to be another color
+        then it doesn't change. Is there any way I can implement a dynamic thickness and color-changing system?
+Solution Found:

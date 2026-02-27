@@ -22,6 +22,7 @@ public class SpaceExplorerApp extends Application {
 
     private Planet startNode = null;
     private Planet endNode = null;
+    private Map<Planet, Circle> planetCircles = new HashMap<>();
 
     @Override
     public void start(Stage stage) {
@@ -83,10 +84,13 @@ public class SpaceExplorerApp extends Application {
         // TODO: spacePane.getChildren().add(line);
         for (Planet eachPlanet : universe.getVertices()) {
             for (Edge<Planet> thisEdge : universe.getNeighbors(eachPlanet)) {
-                Line thisLine = new Line(eachPlanet.getX(), eachPlanet.getY(), thisEdge.destination.getX(), thisEdge.destination.getY());
-                thisLine.setStroke(Color.PINK);
-                spacePane.getChildren().add(thisLine);
-                thisLine.setStroke(Color.PINK);
+                Line line = new Line();
+                line.startXProperty().bind(eachPlanet.xProperty());
+                line.startYProperty().bind(eachPlanet.yProperty());
+                line.endXProperty().bind(thisEdge.destination.xProperty());
+                line.endYProperty().bind(thisEdge.destination.yProperty());
+                line.setStroke(Color.WHITE);
+                spacePane.getChildren().add(line);
             }
         }
 
@@ -96,10 +100,18 @@ public class SpaceExplorerApp extends Application {
         // TODO: Set color Color.CYAN
         // TODO: spacePane.getChildren().add(circle);
         for (Planet eachPlanet : universe.getVertices()) {
-            Circle thisCircle = new Circle(eachPlanet.getX(), eachPlanet.getY(), 10);
-            thisCircle.setFill(Color.CYAN);
-            spacePane.getChildren().add(thisCircle);
-            thisCircle.setOnMouseClicked(e -> handlePlanetClick(eachPlanet));
+            Circle circle = new Circle();
+            circle.setRadius(8);
+            circle.setFill(Color.GOLD);
+            circle.centerXProperty().bindBidirectional(eachPlanet.xProperty());
+            circle.centerYProperty().bindBidirectional(eachPlanet.yProperty());
+            circle.setOnMouseClicked(e -> handlePlanetClick(eachPlanet));
+            circle.setOnMouseDragged(e -> {
+                circle.setCenterX(e.getX());
+                circle.setCenterY(e.getY());
+            });
+            spacePane.getChildren().add(circle);
+            planetCircles.put(eachPlanet, circle);
         }
 
         // 3. Add Click Events
@@ -123,7 +135,11 @@ public class SpaceExplorerApp extends Application {
         // TODO: Loop through the 'path' list.
         // TODO: Draw a thick GOLD line connecting the planets.
         for (int i = 0; i < path.size(); i ++) {
-            Line eachLine = new Line(path.get(i).previous.getX(), path.get(i).previous.getY(), path.get(i).getX(), path.get(i).getY());
+            Line eachLine = new Line();
+            eachLine.startXProperty().bind(path.get(i).previous.xProperty());
+            eachLine.startYProperty().bind(path.get(i).previous.yProperty());
+            eachLine.endXProperty().bind(path.get(i).xProperty());
+            eachLine.endYProperty().bind(path.get(i).yProperty());
             if (Math.hypot(path.get(i).previous.getX() - path.get(i).getX(), path.get(i).previous.getY() - path.get(i).getY()) > 200) {
                 eachLine.setStrokeWidth(5);
                 eachLine.setStroke(Color.RED);

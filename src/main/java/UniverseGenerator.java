@@ -1,4 +1,6 @@
 import java.util.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 public class UniverseGenerator {
 
@@ -28,8 +30,8 @@ public class UniverseGenerator {
 
             while(!validPosition && attempt < 100){
                 String name = "Planet " + (i+1);
-                double x = 50 + (Math.random()*(width - 100));
-                double y = 50 + (Math.random()*(height - 100));
+                double x = 50 + (Math.random() * (width - 100));
+                double y = 50 + (Math.random() * (height - 100));
                 validPosition = true;
 
                 newPlanet = new Planet(name, x, y);
